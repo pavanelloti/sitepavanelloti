@@ -2,12 +2,6 @@
 
 namespace Source\Core;
 
-/**
- * FSPHP | Class Route
- *
- * @author Robson V. Leite <cursos@upinside.com.br>
- * @package Source\Core
- */
 class Route
 {
     /** @var array */

@@ -4,12 +4,6 @@ namespace Source\Core;
 
 use League\Plates\Engine;
 
-/**
- * FSPHP | Class View
- *
- * @author Robson V. Leite <cursos@upinside.com.br>
- * @package Source\Core
- */
 class View
 {
     /** @var Engine */
@@ -22,7 +16,7 @@ class View
      */
     public function __construct(string $path = CONF_VIEW_PATH, string $ext = CONF_VIEW_EXT)
     {
-        $this->engine = Engine::create($path, $ext);
+        $this->engine = new Engine($path, $ext);
     }
 
     /**

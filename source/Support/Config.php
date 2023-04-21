@@ -60,6 +60,7 @@ define("CONF_MESSAGE_ERROR", "error");
  */
 define("CONF_VIEW_PATH", __DIR__ . "/../../shared/views");
 define("CONF_VIEW_EXT", "php");
+define("CONF_VIEW_THEME", "cafecontrol");
 
 /**
  * UPLOAD

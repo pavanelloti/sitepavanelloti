@@ -9,22 +9,30 @@ use CoffeeCode\Router\Router;
 $session = new Session();
 $route = new Router(url(), ":");
 
-/** WEB ROUTES */
+##################
+/** WEB ROUTES **/
+##################
 
 $route->namespace("Source\App");
 $route->get("/", "Web:home");
 $route->get("/sobre", "Web:about");
 
-/** ERROR ROUTES */
+####################
+/** ERROR ROUTES **/
+####################
 
 $route->namespace("Source\App")->group("/ops");
 $route->get("/{errcode}", "Web:error");
 
-/** ROUTES */
+##############
+/** ROUTES **/
+##############
 
 $route->dispatch();
 
-/** ERROR REDIRECT */
+######################
+/** ERROR REDIRECT **/
+######################
 
 if($route->error()){
     $route->redirect("/ops/{$route->error()}");
