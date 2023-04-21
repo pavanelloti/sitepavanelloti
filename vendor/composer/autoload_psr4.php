@@ -12,6 +12,7 @@ return array(
     'League\\Plates\\' => array($vendorDir . '/league/plates/src'),
     'ImageMimeTypeGuesser\\' => array($vendorDir . '/rosell-dk/image-mime-type-guesser/src'),
     'CoffeeCode\\Uploader\\' => array($vendorDir . '/coffeecode/uploader/src'),
+    'CoffeeCode\\Router\\' => array($vendorDir . '/coffeecode/router/src'),
     'CoffeeCode\\Paginator\\' => array($vendorDir . '/coffeecode/paginator/src'),
     'CoffeeCode\\Optimizer\\' => array($vendorDir . '/coffeecode/optimizer/src'),
     'CoffeeCode\\Cropper\\' => array($vendorDir . '/coffeecode/cropper/src'),

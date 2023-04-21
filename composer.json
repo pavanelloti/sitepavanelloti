@@ -28,6 +28,7 @@
     "coffeecode/uploader": "2.0.*",
     "coffeecode/cropper": "2.0.*",
     "coffeecode/optimizer": "2.1.*",
-    "coffeecode/paginator": "2.0.*"
+    "coffeecode/paginator": "2.0.*",
+    "coffeecode/router": "2.0.*"
   }
 }

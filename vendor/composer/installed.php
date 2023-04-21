@@ -3,7 +3,7 @@
         'name' => 'pavanelloti/sitepavanelloti',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '6e98a6d0f8a4756e7f4d796951e9f5cffcb9972a',
+        'reference' => '170ca627b9456bd93941ee3acd43d5932b608455',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -37,6 +37,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'coffeecode/router' => array(
+            'pretty_version' => '2.0.2',
+            'version' => '2.0.2.0',
+            'reference' => 'a16770ae952ce3f91a04035a09be610a030e049c',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../coffeecode/router',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'coffeecode/uploader' => array(
             'pretty_version' => '2.0.4',
             'version' => '2.0.4.0',
@@ -58,7 +67,7 @@
         'pavanelloti/sitepavanelloti' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '6e98a6d0f8a4756e7f4d796951e9f5cffcb9972a',
+            'reference' => '170ca627b9456bd93941ee3acd43d5932b608455',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
