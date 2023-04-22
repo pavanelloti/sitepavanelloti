@@ -16,6 +16,7 @@ $route = new Router(url(), ":");
 $route->namespace("Source\App");
 $route->get("/", "Web:home");
 $route->get("/sobre", "Web:about");
+$route->post("/cadastro", "Web:cadastro");
 
 ####################
 /** ERROR ROUTES **/
