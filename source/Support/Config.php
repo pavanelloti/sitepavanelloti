@@ -11,7 +11,7 @@ define("CONF_DB_NAME", "fullstackphp");
  * PROJECT URLs
  */
 define("CONF_URL_BASE", "https://www.pavanelloti.com.br");
-define("CONF_URL_TEST", "https://localhost/pavanelloti");
+define("CONF_URL_TEST", "https://www.localhost/pavanelloti");
 define("CONF_URL_ADMIN", "/admin");
 
 /**

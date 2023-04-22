@@ -5,7 +5,7 @@
         <meta name="mit" content="2023-04-20T15:19:46-03:00+199206">
     <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <title>CafeControl - Gerencie suas contas com um bom café</title>
+    <title>PavanelloTI - Gerencie suas contas com um bom café</title>
     <link rel="icon" type="image/png" href="<?= theme("/assets/images/favicon.png");?>">
     <link rel="stylesheet" href="<?= theme("assets/css/styles.css");?>"/>
     <link rel="stylesheet" href="<?= theme("assets/css/boot.css");?>"/>
@@ -17,7 +17,7 @@
 <header class="main_header gradient gradient-green">
     <div class="container">
         <div class="main_header_logo">
-            <h1><a class="icon-coffee transition" title="Home" href="<?= url(); ?>">Cafe<b>Control</b></a></h1>
+            <h1><a class="icon-coffee transition" title="Home" href="<?= url(); ?>">Pavanello<b>TI</b></a></h1>
         </div>
 
         <nav class="main_header_nav">
@@ -46,7 +46,7 @@
             <span class="icon icon-coffee icon-notext"></span>
             <h2>Comece a controlar suas contas agora mesmo</h2>
             <p>É rápido, simples e gratuito!</p>
-            <a href="?file=auth-register"
+            <a href="<?= url("cadastro"); ?>"
             class="footer_optout_btn gradient gradient-green gradient-hover radius icon-check-square-o">Quero controlar</a>
         </div>
     </article>
@@ -58,7 +58,7 @@
         <section class="main_footer_content">
             <article class="main_footer_content_item">
                 <h2>Sobre:</h2>
-                <p>O CafeControl é um gerenciador de contas simples, poderoso e gratuito. O prazer de tomar um café e
+                <p>O PavanelloTI é um gerenciador de contas simples, poderoso e gratuito. O prazer de tomar um café e
                     ter o controle total de suas contas.</p>
                 <a title="Termos de uso" href="<?= url(); ?>">Termos de uso</a>
             </article>
@@ -73,16 +73,16 @@
 
             <article class="main_footer_content_item">
                 <h2>Contato:</h2>
-                <p class="icon-phone"><b>Telefone:</b><br> +55 55 5555.5555</p>
-                <p class="icon-envelope"><b>Email:</b><br> cafe@cafecontrol.com</p>
-                <p class="icon-map-marker"><b>Endereço:</b><br> Fpolis, SC/Brasil</p>
+                <p class="icon-phone"><b>Telefone:</b><br> +55 (47) 99235-0268</p>
+                <p class="icon-envelope"><b>Email:</b><br> suporte@pavanelloti.com.br</p>
+                <p class="icon-map-marker"><b>Endereço:</b><br> Joinville, SC/Brasil</p>
             </article>
 
             <article class="main_footer_content_item social">
                 <h2>Social:</h2>
                 <a target="_blank" class="icon-facebook" href="www.facebook.com/<?= CONF_SOCIAL_FACEBOOK_PAGE; ?>" title="CafeControl no Facebook">/CafeControl</a>
                 <a target="_blank" class="icon-instagram" href="www.instagram.com/<?= CONF_SOCIAL_FACEBOOK_PAGE; ?>" title="CafeControl no Instagram">@CafeControl</a>
-                <a target="_blank" class="icon-youtube" href="www.youtube.com/<?= CONF_SOCIAL_FACEBOOK_PAGE; ?>" title="CafeControl no YouTube">/CafeControl</a>
+                <!--<a target="_blank" class="icon-youtube" href="www.youtube.com/<?= CONF_SOCIAL_FACEBOOK_PAGE; ?>" title="CafeControl no YouTube">/CafeControl</a>-->
             </article>
         </section>
     </div>

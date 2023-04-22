@@ -61,7 +61,7 @@
 <article class="home_optin">
     <div class="home_optin_content container content">
         <header class="home_optin_content_flex">
-            <h2>Cadastre-se no CaféControl e comece a controlar suas contas hoje mesmo</h2>
+            <h2>Cadastre-se no PavanelloTI e comece a controlar suas contas hoje mesmo</h2>
             <p>Receber e pagar é uma tarefa comum do dia a dia, o CafeControl é um gerenciador de contas simples, fácil
                 e gratuito para ajudar você nessa tarefa.</p>
             <p>Com ele você lança suas contas, cria recorrências e conta com atuomações e relatórios poderosos que
@@ -87,7 +87,7 @@
 <article class="home_video">
     <div class="home_video_content container content">
         <header>
-            <h2>Descubra o CafeControl</h2>
+            <h2>Descubra o PavanelloTI</h2>
             <span data-modal=".home_video_modal" class="icon-play-circle-o icon-notext transition"></span>
         </header>
     </div>
