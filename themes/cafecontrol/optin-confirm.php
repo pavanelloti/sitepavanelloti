@@ -1,4 +1,4 @@
-<?php $v->layout("_theme"); ?>
+<?php $this->layout("_theme", ["head"=>$head]); ?>
 
 <article class="optin_page">
     <div class="container content">

@@ -1,4 +1,4 @@
-<?php $v->layout("_theme"); ?>
+<?php $this->layout("_theme", ["head"=>$head]); ?>
 
 <section class="blog_page">
     <header class="blog_page_header">
@@ -28,7 +28,7 @@
     <div class="blog_content container content">
         <div class="blog_articles">
             <?php for ($i = 0; $i <= 8; $i++): ?>
-                <?php $v->insert("blog-list"); ?>
+                <?php $this->insert("blog-list"); ?>
             <?php endfor; ?>
         </div>
 

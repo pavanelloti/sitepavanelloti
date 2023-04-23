@@ -1,4 +1,4 @@
-<?php $v->layout("_theme"); ?>
+<?php $this->layout("_theme", ["head"=>$head]); ?>
 
     <article class="post_page">
         <header class="post_page_header">
@@ -110,7 +110,7 @@
 
                 <div class="blog_articles">
                     <?php for ($i = 0; $i <= 2; $i++): ?>
-                        <?php $v->insert("blog-list"); ?>
+                        <?php $this->insert("blog-list"); ?>
                     <?php endfor; ?>
                 </div>
             </section>
@@ -118,16 +118,16 @@
     </article>
 
 
-<?php $v->start("scripts"); ?>
-<div id="fb-root"></div>
-<script>(function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.1&appId=267654637306249&autoLogAppEvents=1';
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
+<?php $this->start("scripts"); ?>
+    <div id="fb-root"></div>
+    <script>(function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = 'https://connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v3.1&appId=267654637306249&autoLogAppEvents=1';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
 
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-<?php $v->end(); ?>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<?php $this->end(); ?>

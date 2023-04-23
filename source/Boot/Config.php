@@ -87,6 +87,7 @@ define("CONF_MAIL_PORT", "587");
 define("CONF_MAIL_USER", "no-reply@quira.com.br");
 define("CONF_MAIL_PASS", "5JmW5cDL9");
 define("CONF_MAIL_SENDER", ["name" => "Quira-Sistema", "address" => "suporte@quira.com.br"]);
+define("CONF_MAIL_SUPPORT", "suporte@quira.com.br");
 define("CONF_MAIL_OPTION_LANG", "br");
 define("CONF_MAIL_OPTION_HTML", true);
 define("CONF_MAIL_OPTION_AUTH", true);
