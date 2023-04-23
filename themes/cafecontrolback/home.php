@@ -1,4 +1,4 @@
-<?php $this->layout("_theme", ["head"=>$head]); ?>
+<?php $v->layout("theme"); ?>
 
 <!--FEATURED-->
 <article class="home_featured">
@@ -76,7 +76,7 @@
         <div class="home_optin_content_flex">
             <span class="icon icon-check-square-o icon-notext"></span>
             <h4>Crie sua conta gratuitamente:</h4>
-            <form action="<?= url("/cadastrar"); ?>" method="post" enctype="multipart/form-data">
+            <form action="<?= url("cadastro"); ?>" method="post" enctype="multipart/form-data">
                 <input type="text" name="first_name" placeholder="Primeiro nome:"/>
                 <input type="text" name="last_name" placeholder="Último nome:"/>
                 <input type="email" name="email" placeholder="Melhor e-mail:"/>
@@ -99,7 +99,7 @@
     <div class="home_video_modal j_modal_close">
         <div class="home_video_modal_box">
             <div class="embed">
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/<?= $video; ?>?rel=0&amp;showinfo=0"
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/lDZGl9Wdc7Y?rel=0&amp;showinfo=0"
                         frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
@@ -116,7 +116,7 @@
 
         <div class="blog_articles">
             <?php for ($i = 0; $i <= 5; $i++): ?>
-                <?php $this->insert("blog-list"); ?>
+                <?php $v->insert("views/blog-post"); ?>
             <?php endfor; ?>
         </div>
     </div>

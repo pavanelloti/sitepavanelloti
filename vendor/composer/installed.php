@@ -3,7 +3,7 @@
         'name' => 'pavanelloti/sitepavanelloti',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '88667010225dfefe8208111bfed45a0e1e9bbb47',
+        'reference' => '7d8902daeb3bf58074f748cd2bb9c0e70c52acfc',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -85,7 +85,7 @@
         'pavanelloti/sitepavanelloti' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '88667010225dfefe8208111bfed45a0e1e9bbb47',
+            'reference' => '7d8902daeb3bf58074f748cd2bb9c0e70c52acfc',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
