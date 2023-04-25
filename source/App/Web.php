@@ -16,7 +16,6 @@ class Web extends Controller
         parent::__construct(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/");
 
     }
-
     
     #######################
     /** paginas da home **/
