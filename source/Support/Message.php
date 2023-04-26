@@ -116,6 +116,14 @@ class Message
      */
     private function filter(string $message): string
     {
-        return filter_var($message, FILTER_SANITIZE_STRIPPED);
+        if($message){
+                //return $message;
+            
+                return filter_var($message, FILTER_SANITIZE_SPECIAL_CHARS);
+                
+                //return filter_var($message, FILTER_SANITIZE_FULL_SPECIAL_CHARS); -> remove até os acentos
+                
+                //return filter_var($message, FILTER_SANITIZE_STRIPPED); -> Obsoleta
+        }
     }
 }

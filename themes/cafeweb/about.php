@@ -60,26 +60,23 @@
     </aside>
 </section>
 
-<section class="faq">
-    <div class="faq_content content container">
-        <header class="faq_header">
-            <img class="title_image" title="Perguntas frequentes" alt="Perguntas frequentes"
-                 src="<?= theme("/assets/images/faq-title.jpg"); ?>"/>
-            <h3>Perguntas frequentes:</h3>
-            <p>Confira as principais dúvidas e repostas sobre o CaféControl.</p>
-        </header>
-        <div class="faq_asks">
-            <?php for ($i = 0; $i < 6; $i++): ?>
-                <article class="faq_ask j_collapse">
-                    <h4 class="j_collapse_icon icon-plus">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Deserunt, soluta.</h4>
-                    <div class="faq_ask_coll j_collapse_box">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus amet aperiam in pariatur
-                            quaerat, qui saepe tenetur ut vero vitae.</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio, repudiandae.</p>
-                    </div>
-                </article>
-            <?php endfor; ?>
+<?php if(!empty($faq)): ?>
+    <section class="faq">
+        <div class="faq_content content container">
+            <header class="faq_header">
+                <img class="title_image" title="Perguntas frequentes" alt="Perguntas frequentes"
+                    src="<?= theme("/assets/images/faq-title.jpg"); ?>"/>
+                <h3>Perguntas frequentes:</h3>
+                <p>Confira as principais dúvidas e repostas sobre o CaféControl.</p>
+            </header>
+            <div class="faq_asks">
+                <?php foreach ($faq as $value): ?>
+                    <article class="faq_ask j_collapse">
+                        <h4 class="j_collapse_icon icon-plus"> <?= $value->question; ?> </h4>
+                        <div class="faq_ask_coll j_collapse_box"> <?= $value->response; ?> </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+<?php endif; ?>

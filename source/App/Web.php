@@ -2,9 +2,12 @@
 
 namespace Source\App;
 
+use Source\Models\User;
 use Source\Core\Connect;
 use Source\Support\Pager;
 use Source\Core\Controller;
+use Source\Models\Faq\Channel;
+use Source\Models\Faq\Question;
 
 class Web extends Controller
 {
@@ -22,6 +25,9 @@ class Web extends Controller
     #######################
     public function home(): void
     {
+        $model = (new Question())->find()->fetch(true);
+        var_dump($model);
+        
         $head = $this->seo->render(CONF_SITE_NAME . " - " . CONF_SITE_TITLE, CONF_SITE_DESC, url(), theme("/assets/images/share.jpg"));
 
         echo $this->view->render("home", [
@@ -36,7 +42,11 @@ class Web extends Controller
 
         echo $this->view->render("about", [
             "head"=>"$head",
-            "video"=>"lDZGl9Wdc7Y"
+            "video"=>"lDZGl9Wdc7Y",
+            "faq"=>(new Question())
+                ->find("channel_id = :id", "id=1", "question, response")
+                ->order("order_by")
+                ->fetch(true)
         ]);
     }
    
