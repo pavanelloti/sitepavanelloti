@@ -2,10 +2,12 @@
 
 namespace Source\App;
 
+use Source\Models\Post;
 use Source\Models\User;
 use Source\Core\Connect;
 use Source\Support\Pager;
 use Source\Core\Controller;
+use Source\Models\Category;
 use Source\Models\Faq\Channel;
 use Source\Models\Faq\Question;
 
@@ -25,14 +27,13 @@ class Web extends Controller
     #######################
     public function home(): void
     {
-        $model = (new Question())->find()->fetch(true);
-        var_dump($model);
         
         $head = $this->seo->render(CONF_SITE_NAME . " - " . CONF_SITE_TITLE, CONF_SITE_DESC, url(), theme("/assets/images/share.jpg"));
 
         echo $this->view->render("home", [
             "head"=>"$head",
-            "video"=>"lDZGl9Wdc7Y"
+            "video"=>"lDZGl9Wdc7Y",
+            "blog"=> (new Post())->find()->order("post_at DESC")->limit(9)->fetch(true)
         ]);
     }
 
