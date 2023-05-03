@@ -91,7 +91,7 @@
 </footer>
 
 <script src="<?= theme("/assets/scripts.js"); ?>"></script>
-<?= $this->section("scripts"); ?>
+<?= $this->section("script"); ?>
 
 </body>
 </html>
