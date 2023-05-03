@@ -301,9 +301,6 @@ function passwd_rehash(string $hash): bool
  * ##########################
  */
 
-/**
- * @return string
- */
 function csrf_input(): string
 {
     $session = new \Source\Core\Session();

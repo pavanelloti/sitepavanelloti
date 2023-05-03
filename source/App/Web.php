@@ -68,25 +68,42 @@ class Web extends Controller
     {
         $head = $this->seo->render("Blog - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/blog"), theme("/assets/images/share.jpg"));
 
-        $pager = new Pager(url("/blog/page/"));
-
-        $pager->pager(100, 10, ($data['page'] ?? 1));
+        $blog = (new Post())->find();
+        $pager = new Pager(url("/blog/p/"));
+        $pager->pager(count($blog->fetch(true)), 9, ($data['page'] ?? 1));
 
         echo $this->view->render("blog", [
             "head"=>"$head",
+            "blog"=>$blog->limit($pager->limit())->offset($pager->offset())->fetch(true),
             "paginator"=>$pager->render()
         ]);
     }
     
     public function blogPost(array $data): void
     {
-        $postName = $data["postName"];
-        
-        $head = $this->seo->render("POSTNAME - " . CONF_SITE_NAME, CONF_SITE_DESC, url("/blog/{$postName}"), theme("/assets/images/share.jpg"));
+        $post = (new Post())->findByUri($data['uri']);
+        if(!$post){
+            redirect("/404");
+        }
+
+        $post->views += 1;
+        $post->save();
+
+        $head = $this->seo->render(
+            "{$post->title} - " . CONF_SITE_NAME,
+            $post->subtitle,
+            url("/blog/{$post->uri}"),
+            image($post->cover, 1200, 628)
+        );
 
         echo $this->view->render("blog-post", [
-            "head"=>"$head",
-            "data"=>$this->seo->data()
+            "head"=>$head,
+            "post"=>$post,
+            "related"=>(new Post())
+            ->find("category = :category And id != :id", "category={$post->category}&id={$post->id}")
+            ->order("rand()")
+            ->limit(3)
+            ->fetch(true)
         ]);
     }
 

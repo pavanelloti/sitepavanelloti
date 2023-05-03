@@ -177,6 +177,7 @@ abstract class Model
 
     public function count(string $key = "id"):int
     {
+        //var_dump($blog);exit;
         $stmt = Connect::getIntance()->prepare($this->query);
         $stmt->execute($this->params);
         return $stms->rowCount();
