@@ -6,13 +6,13 @@
         <p><?= ($search ?? "Confira nossas dicas para controlar melhor suas contas"); ?></p>
         <form name="search" action="<?= url("/blog/buscar"); ?>" method="post" enctype="multipart/form-data">
             <label>
-                <input type="text" name="s" placeholder="Encontre um artigo:"/>
+                <input type="text" name="s" placeholder="Encontre um artigo:" required/>
                 <button class="icon-search icon-notext"></button>
             </label>
         </form>
     </header>
 
-    <?php if(empty($blog) && !empty($serach)): ?>
+    <?php if(empty($blog) && !empty($search)): ?>
         
         <div class="content content">
             <div class="empty_content">

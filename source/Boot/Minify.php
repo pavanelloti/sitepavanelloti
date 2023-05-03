@@ -33,6 +33,7 @@ if(strpos(url(), "localhost")){  //STRPOS - (se dentro da 'variavel/func', exist
 
     $minJS = new Minify\JS();
     $minJS->add(__DIR__ . "/../../shared/scripts/jquery.min.js");
+    $minJS->add(__DIR__ . "/../../shared/scripts/jquery.form.js");
     $minJS->add(__DIR__ . "/../../shared/scripts/jquery-ui.js");
 
     // Theme JS
