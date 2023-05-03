@@ -90,7 +90,7 @@
     </div>
 </footer>
 
-<script src="<?= theme("/assets/scripts.js"); ?>"></script>
+<script src="<?= theme("/assets/script.js"); ?>"></script>
 <?= $this->section("scripts"); ?>
 
 </body>
