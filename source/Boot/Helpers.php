@@ -270,7 +270,7 @@ function date_fmt_app(string $date = "now"): string
  */
 function passwd(string $password): string
 {
-    if(!empty(password_get_info()['algo'])){
+    if (!empty(password_get_info($password)['algo'])){
         return $password;
     }
     return password_hash($password, CONF_PASSWD_ALGO, CONF_PASSWD_OPTION);
