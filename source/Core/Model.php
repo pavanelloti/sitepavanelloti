@@ -2,6 +2,8 @@
 
 namespace Source\Core;
 
+use PDO;
+use Source\Core\Connect;
 use Source\Support\Message;
 
 abstract class Model
@@ -178,9 +180,9 @@ abstract class Model
     public function count(string $key = "id"):int
     {
         //var_dump($blog);exit;
-        $stmt = Connect::getIntance()->prepare($this->query);
+        $stmt = Connect::getInstance()->prepare($this->query);
         $stmt->execute($this->params);
-        return $stms->rowCount();
+        return $stmt->rowCount();
     }
 
     protected function create(array $data): ?int

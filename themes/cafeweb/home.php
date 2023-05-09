@@ -76,11 +76,13 @@
         <div class="home_optin_content_flex">
             <span class="icon icon-check-square-o icon-notext"></span>
             <h4>Crie sua conta gratuitamente:</h4>
-            <form action="" method="post" enctype="multipart/form-data">
-                <input type="text" name="first_name" placeholder="Primeiro nome:"/>
-                <input type="text" name="last_name" placeholder="Último nome:"/>
-                <input type="email" name="email" placeholder="Melhor e-mail:"/>
-                <input type="password" name="password" placeholder="Senha de acesso:"/>
+            <form action="<?= url("/cadastrar"); ?>" method="post" enctype="multipart/form-data">
+                <div class="ajax_response"><?= flash(); ?></div>
+                <?= csrf_input(); ?>
+                <input type="text" name="first_name" placeholder="Primeiro nome:" required/>
+                <input type="text" name="last_name" placeholder="Último nome:" required/>
+                <input type="email" name="email" placeholder="Melhor e-mail:" required/>
+                <input type="password" name="password" placeholder="Senha de acesso:" required/>
                 <button class="radius transition gradient gradient-green gradient-hover">Criar minha conta</button>
             </form>
         </div>

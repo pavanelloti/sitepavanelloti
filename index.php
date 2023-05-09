@@ -25,6 +25,8 @@ $route->get("/p/{page}", "Web:blog");
 $route->get("/{uri}", "Web:blogPost");
 $route->post("/buscar", "Web:blogSearch");
 $route->get("/buscar/{terms}/{page}", "Web:blogSearch");
+$route->get("/em/{category}", "Web:blogCategory");
+$route->get("/em/{category}/{page}", "Web:blogCategory");
 
 //login
 $route->group(null);

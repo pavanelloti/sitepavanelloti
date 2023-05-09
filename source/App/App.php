@@ -23,7 +23,7 @@ class App extends Controller
     public function home()
     {
         echo flash();
-        var_dump(Auth::user());
+        Auth::user();
         echo "<br><br><a title='Sai' href='" . url("/app/sair") . "'> Sair </a>";
     }
 
