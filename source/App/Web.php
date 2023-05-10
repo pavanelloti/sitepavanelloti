@@ -6,6 +6,7 @@ use Source\Models\Auth;
 use Source\Models\Post;
 use Source\Models\User;
 use Source\Core\Connect;
+use Source\Support\Email;
 use Source\Support\Pager;
 use Source\Core\Controller;
 use Source\Models\Category;
@@ -17,8 +18,18 @@ class Web extends Controller
     public function __construct()
     {
        
-       //redirect("/ops/manutencao");
+        //redirect("/ops/manutencao");
         parent::__construct(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/");
+        //string $subject, string $body, string $recipient, string $recipientName
+        $email = new Email();
+        $email->bootstrap(
+            "Envio de e-mail teste de Fila " . time() ,
+            "Teste de Fila de E-mail ",
+            "pavanelloti@gmail.com",
+            "Alex Pavanello"
+        )->sendQueue();
+
+        //var_dump($email->sendQueue());
 
     }
     
