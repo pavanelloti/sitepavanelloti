@@ -226,6 +226,35 @@ abstract class Model
         }
     }
 
+    public function save(): bool
+    {   
+        if (!$this->required()){
+            $this->message->warning("Preencha todos os campos para continuar");
+            return false;
+        }
+        //** Update **//
+        if(!empty($this->id)) {
+            $id = $this->id;
+            $this->update($this->safe(),"id = :id", "id={$id}");
+            if ($this->fail()) {
+                $this->message->error("Erro ao atualizar, verifique os dados");
+                return false;
+            }
+        }        
+        //** Insert**//
+        if(empty($this->id)) {
+            $id = $this->create($this->safe());
+            if ($this->fail()) {
+                $this->message->error("Erro ao cadastrar, verifique os dados");
+                return false;
+            }
+        } 
+        
+        $this->data = $this->findById($id)->data();
+        return true;
+        
+    }
+
     public function delete(string $terms, ?string $params): bool
     {
         try {

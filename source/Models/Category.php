@@ -18,8 +18,4 @@ class Category extends Model
         return $find->fetch();
     }
 
-    public function save(): bool
-    {
-
-    }
 }

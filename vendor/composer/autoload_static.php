@@ -9,7 +9,8 @@ class ComposerStaticInite87f0d7102a8556c704cce74920e60b6
     public static $files = array (
         '2e076c308895c4a08069e4da3d69f13b' => __DIR__ . '/../..' . '/source/Boot/Config.php',
         '7a8a2f6568e01cc77ddecf895e0734c8' => __DIR__ . '/../..' . '/source/Boot/Helpers.php',
-        '0cb2ee3533e9630b97eb20a2dc853ac4' => __DIR__ . '/../..' . '/source/Boot/Minify.php',
+        '35dc20257bc8558bc81be949cf2ab2e6' => __DIR__ . '/../..' . '/source/Boot/Minify/Web.php',
+        'c0b93c8863e1bc0029fe67b1ed378881' => __DIR__ . '/../..' . '/source/Boot/Minify/App.php',
     );
 
     public static $prefixLengthsPsr4 = array (
