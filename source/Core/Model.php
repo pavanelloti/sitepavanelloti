@@ -20,7 +20,7 @@ abstract class Model
     /** @var string */
     protected $query;
     
-    /** @var string */
+    /** @var array|null */
     protected $params;
 
     /** @var string */
@@ -116,7 +116,9 @@ abstract class Model
         if ($terms){
 
             $this->query = "SELECT {$columns} FROM " . static::$entity . " WHERE {$terms} ";
-            parse_str($params, $this->params);
+            if ($params) {
+                parse_str($params, $this->params);
+            }
             return $this;
 
         }
@@ -158,7 +160,11 @@ abstract class Model
     {
         try{
             $stmt = Connect::getInstance()->prepare($this->query.$this->order.$this->limit.$this->offset);
-            $stmt->execute($this->params);
+            if ($this->params){
+                $stmt->execute($this->params);
+            } else {
+                $stmt->execute();
+            }
 
             if(!$stmt->rowCount()){
                 return null;
@@ -179,7 +185,6 @@ abstract class Model
 
     public function count(string $key = "id"):int
     {
-        //var_dump($blog);exit;
         $stmt = Connect::getInstance()->prepare($this->query);
         $stmt->execute($this->params);
         return $stmt->rowCount();
@@ -221,17 +226,31 @@ abstract class Model
         }
     }
 
-    public function delete(string $key, string $value): bool
+    public function delete(string $terms, ?string $params): bool
     {
         try {
-            $stmt = Connect::getInstance()->prepare("DELETE FROM " . static::$entity . " WHERE {$key} = :key");
-            $stmt->bindValue("key", $value, \PDO::PARAMS_STR);
+            $stmt = Connect::getInstance()->prepare("DELETE FROM " . static::$entity . " WHERE {$terms}");
+            if ($params){
+                parse_str($params, $this->params);
+                $stmt->execute($params);    
+                return true;
+            }
             $stmt->execute();
             return true;
         } catch (\PDOException $exception) {
             $this->fail = $exception;
             return false;
         }
+    }
+
+    public function destrory(): bool
+    {
+        if (empty($this->id)) {
+            return false;
+        }
+
+        $destrory = $this->delete("id = :id", "id={$this->id}");
+        return $destrory;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Source\App;
 
 use Source\Models\Auth;
+use Source\Core\Session;
 use Source\Core\Controller;
 use Source\Support\Message;
 
@@ -24,6 +25,7 @@ class App extends Controller
     {
         echo flash();
         Auth::user();
+        
         echo "<br><br><a title='Sai' href='" . url("/app/sair") . "'> Sair </a>";
     }
 

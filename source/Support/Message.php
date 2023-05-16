@@ -12,12 +12,14 @@ use Source\Core\Session;
  */
 class Message
 {
-    /** @var string */
+    
     private $text;
 
-    /** @var string */
     private $type;
 
+    private $before;
+
+    private $after;
     /**
      * @return string
      */
@@ -31,7 +33,7 @@ class Message
      */
     public function getText(): ?string
     {
-        return $this->text;
+        return $this->before . $this->text .  $this->after;
     }
 
     /**
@@ -42,6 +44,17 @@ class Message
         return $this->type;
     }
 
+    public function before(string $before): Message
+    {
+        $this->before = $before;
+        return $this;
+    }
+
+    public function after(string $after): Message
+    {
+        $this->after = $after;
+        return $this;
+    }
     /**
      * @param string $message
      * @return Message

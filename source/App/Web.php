@@ -5,31 +5,29 @@ namespace Source\App;
 use Source\Models\Auth;
 use Source\Models\Post;
 use Source\Models\User;
-use Source\Core\Connect;
-use Source\Support\Email;
+use Source\Core\Session;
 use Source\Support\Pager;
 use Source\Core\Controller;
 use Source\Models\Category;
-use Source\Models\Faq\Channel;
 use Source\Models\Faq\Question;
+use Source\Models\Report\Access;
+use Source\Models\Report\Online;
 
 class Web extends Controller
 {
     public function __construct()
-    {
-       
+    {     
         //redirect("/ops/manutencao");
-        parent::__construct(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/");
-        //string $subject, string $body, string $recipient, string $recipientName
-        $email = new Email();
-        $email->bootstrap(
-            "Envio de e-mail teste de Fila " . time() ,
-            "Teste de Fila de E-mail ",
-            "pavanelloti@gmail.com",
-            "Alex Pavanello"
-        )->sendQueue();
 
-        //var_dump($email->sendQueue());
+        parent::__construct(__DIR__ . "/../../themes/" . CONF_VIEW_THEME . "/");
+
+       (new Access())->report();
+       (new Online())->report();   
+       $session = new Session() ;
+       //var_dump($session->all());
+        //$email = new Email();
+        //$email->bootstrap("Envio de e-mail teste de Fila " . time() , "Teste de Fila de E-mail ", "pavanelloti@gmail.com", "Alex Pavanello" )->sendQueue();
+
 
     }
     
@@ -100,7 +98,7 @@ class Web extends Controller
         }
 
         $blogCategory = (new Post())->find("category = :c", "c={$category->id}");
-        $page = (!empty($data['page']) && filter_var($data['page'], FILTERVALIDATE_INT) >= 1 ? $data['page'] : 1);
+        $page = (!empty($data['page']) && filter_var($data['page'], FILTER_VALIDATE_INT) >= 1 ? $data['page'] : 1);
         $pager = new Pager(url("/blog/em/{$category->uri}/"));
         $pager->pager($blogCategory->count(), 9, $page);
 
@@ -210,6 +208,12 @@ class Web extends Controller
                 return;
             }
 
+            if (request_limit("weblogin", 3, 300)){
+                $json['message'] = $this->message->error("Você já efetuou 3 tentativas, esse é o limite. Por favor aguarde 5 minutos para tentar novamente.")->render();
+                echo json_encode($json);
+                return;
+            }
+
             if (empty($data['email']) || empty($data['password'])) {
                 $json['message'] = $this->message->warning("Informe e-mail ou senha para entrar")->render();
                 echo json_encode($json);
@@ -250,6 +254,12 @@ class Web extends Controller
 
             if (empty($data['email'])){
                 $json['message'] = $this->message->warning("Informe seu e-mail para recuperar sua senha.")->render();
+                echo json_encode($json);
+                return;
+            }
+
+            if (request_repeat("webforget", $data['email'])) {
+                $json['message'] = $this->message->error("Opps! git Você já tentou esse e-mail antes.")->render();
                 echo json_encode($json);
                 return;
             }

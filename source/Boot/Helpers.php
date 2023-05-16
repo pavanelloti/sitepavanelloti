@@ -329,3 +329,39 @@ function flash(): ?string
     }
     return null;
 }
+
+function request_limit(string $key, int $limit = 5, int $seconds = 60): bool
+{
+    $session = new Session();
+    if ($session->has($key) && $session->$key->time >= time() && $session->$key->requests < $limit) {
+        $session->set($key, [
+            "time" => time() + $seconds,
+            "requests" => $session->$key->requests + 1
+        ]);
+ 
+        return false;
+
+    }
+
+    if ($session->has($key) && $session->$key->time >= time() && $session->$key->requests >= $limit) {
+        return true;
+    }
+
+    $session->set($key, [
+        "time" => time() + $seconds,
+        "requests" => 1
+    ]);
+ 
+    return false;
+
+}
+
+function request_repeat(string $field, string $value): bool
+{
+    $session = new Session();
+    if ($session->has($field) && $session->$field === $value) {
+        return true;
+    }
+    $session ->set($field, $value);
+    return false;
+}
