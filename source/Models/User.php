@@ -49,6 +49,13 @@ class User extends Model
         return $find->fetch();
     }
 
+    public function photo()
+    {
+        if ($this->photo && file_exists( __DIR__ . "/../../" . CONF_UPLOAD_DIR . "/{$this->photo}")) {
+            return $this->photo;
+        }
+    }
+
     /**
      * @return bool
      */

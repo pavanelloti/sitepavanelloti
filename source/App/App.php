@@ -43,6 +43,10 @@ class App extends Controller
             false
         );
 
+        //CHART
+        
+        //END CHART
+
         echo $this->view->render("home", [
             "head" => $head
         ]);

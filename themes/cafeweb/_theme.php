@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <?= $head; ?>
 
-    <link rel="icon" type="image/png" href="<?= theme("/assets/images/favicon.png", "CONF_VIEW_APP"); ?>"/>
-    <link rel="stylesheet" href="<?= theme("/assets/style.css", "CONF_VIEW_APP"); ?>"/>
+    <link rel="icon" type="image/png" href="<?= theme("/assets/images/favicon.png"); ?>"/>
+    <link rel="stylesheet" href="<?= theme("/assets/style.css"); ?>"/>
 </head>
 <body>
 
@@ -102,7 +102,7 @@
     </div>
 </footer>
 
-<script src="<?= theme("/assets/scripts.js", "CONF_VIEW_APP"); ?>"></script>
+<script src="<?= theme("/assets/scripts.js"); ?>"></script>
 <?= $this->section("scripts"); ?>
 
 </body>

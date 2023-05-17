@@ -1,5 +1,7 @@
 <?php
 
+use Source\Models\Auth;
+use Source\Models\User;
 use Source\Core\Session;
 use Source\Support\Thumb;
 
@@ -87,6 +89,13 @@ function str_title(string $string): string
     return mb_convert_case(filter_var($string, FILTER_SANITIZE_SPECIAL_CHARS), MB_CASE_TITLE);
 }
 
+function str_textarea(string $text): string
+{
+    $text = filter_var($text, FILTER_SANITIZE_SPECIAL_CHARS);
+    $arrayReplace = ["&#10;", "&#10;&#10;", "&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;", "&#10;&#10;&#10;&#10;&#10;"];
+    return "<p>" . str_replace($arrayReplace, "</p><p>", $text) . "</p>";
+}
+
 /**
  * @param string $string
  * @param int $limit
@@ -105,6 +114,11 @@ function str_limit_words(string $string, int $limit, string $pointer = "..."): s
 
     $words = implode(" ", array_slice($arrWords, 0, $limit));
     return "{$words}{$pointer}";
+}
+
+function str_price(string $price)
+{
+    return number_format($price, 2, ",", ".");
 }
 
 /**
@@ -183,6 +197,16 @@ function redirect(string $url): void
         exit;
     }
     
+}
+/**
+ * ###################################
+ * ###    BUSCAR INF DO USUARIO    ###
+ * ###################################
+ */
+
+function user(): ?User
+{
+    return Auth::user();
 }
 
 /**
