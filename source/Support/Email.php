@@ -17,7 +17,7 @@ use PHPMailer\PHPMailer\PHPMailer;
  */
 class Email
 {
-    /** @var array */
+    
     private $data;
 
     /** @var PHPMailer */
@@ -161,8 +161,6 @@ class Email
         }
         
     }
-
-
 
     /**
      * @return PHPMailer

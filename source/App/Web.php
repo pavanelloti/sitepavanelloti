@@ -261,7 +261,7 @@ class Web extends Controller
             }
 
             if (request_repeat("webforget", $data['email'])) {
-                $json['message'] = $this->message->error("Opps! git Você já tentou esse e-mail antes.")->render();
+                $json['message'] = $this->message->error("Opps! Você já tentou esse e-mail antes.")->render();
                 echo json_encode($json);
                 return;
             }

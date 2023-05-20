@@ -90,12 +90,12 @@ define("CONF_IMAGE_QUALITY", ["jpg" => 75, "png" => 5]);
 /**
  * MAIL
  */
-define("CONF_MAIL_HOST", "mail.quira.com.br");
+define("CONF_MAIL_HOST", "smtp.hostinger.com");
 define("CONF_MAIL_PORT", "587");
-define("CONF_MAIL_USER", "no-reply@quira.com.br");
-define("CONF_MAIL_PASS", "5JmW5cDL9");
+define("CONF_MAIL_USER", "suporte@quira.com.br");
+define("CONF_MAIL_PASS", "5JmW5cDL9_");
 define("CONF_MAIL_SENDER", ["name" => "CafeControl", "address" => "suporte@quira.com.br"]);
-define("CONF_MAIL_SUPPORT", "suporte@quira.com.br");
+define("CONF_MAIL_SUPPORT", "pavanelloti@gmail.com");
 define("CONF_MAIL_OPTION_LANG", "br");
 define("CONF_MAIL_OPTION_HTML", true);
 define("CONF_MAIL_OPTION_AUTH", true);

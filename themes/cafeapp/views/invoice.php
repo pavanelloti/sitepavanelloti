@@ -32,7 +32,7 @@
             </label>
 
             <label>
-                <span class="field icon-filter">Categoria:</span>
+                <span class="field icon-filter">Categoria!!!:</span>
                 <select name="category">
                     <?php foreach ($categories as $category): ?>
                         <option value="<?= $category->id; ?>">&ofcir; <?= $category->name; ?></option>
