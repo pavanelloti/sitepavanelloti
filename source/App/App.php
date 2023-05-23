@@ -12,6 +12,7 @@ use Source\Support\Message;
 use Source\Models\Report\Access;
 use Source\Models\Report\Online;
 use Source\Models\CafeApp\AppInvoice;
+use Source\Models\CafeApp\AppCategory;
 
 
 class App extends Controller
@@ -125,11 +126,35 @@ class App extends Controller
         ]);
     }
 
+    public function filter(array $data)
+    {
+        $status = (!empty($data['status']) ? $data['status'] : "all");
+        $category = (!empty($data['category']) ? $data['category'] : "all");
+        $date = (!empty($data['date']) ? $data['date'] : date("m/Y"));
+
+        list($m, $y) = explode("/", $date);
+        $m = ($m >= 1 && $m <= 12 ? $m : date("m"));
+        $y = ($y <= date("Y", strtotime("+10year")) ? $y : date("Y", strtotime("+10year")));
+
+        $start = new \DateTime(date("Y-m-t"));
+        $end = new \DateTime(date("Y-m-t", strtotime("{$y}-{$m}+1month")));
+        $diff = $start->diff($end);
+
+        if (!$diff->invert) {
+            $afterMonths = (floor($diff->days / 30));
+            (new AppInvoice())->fixed($this->user, $afterMonths);
+        }
+
+
+        $json['debug'] = $afterMonths;
+        echo json_encode($json);
+    }
     ##########################
       /** PAGINA RECEBER **/
     ##########################
-    public function income()
-    {
+    public function income(?array $data): void
+    {   
+       
         $head = $this->seo->render(
             "Minhas receitas - " . CONF_SITE_NAME,
             CONF_SITE_DESC,
@@ -138,8 +163,19 @@ class App extends Controller
             false
         );
 
-        echo $this->view->render("income", [
-            "head" => $head
+        $categories = (new AppCategory())->find("type = :t", "t=income", "id, name")->order("order_by, name")->fetch(true);
+        
+        echo $this->view->render("invoices", [
+            "user" => $this->user,
+            "head" => $head,
+            "type" => "income",
+            "categories" => $categories,
+            "invoices" => (new AppInvoice())->filter($this->user, "income", (!empty($data) ? $data : null)),
+            "filter" => (object)[
+                "status" => (!empty($data['status']) ? $data['status'] : null),
+                "category" => (!empty($data['category']) ? $data['category'] : null),
+                "date" => (!empty($data['date']) ? str_replace("-", "/", $data['date']) : null)
+             ]
         ]);
     }
 
@@ -156,8 +192,19 @@ class App extends Controller
             false
         );
 
-        echo $this->view->render("expense", [
-            "head" => $head
+        $categories = (new AppCategory())->find("type = :t", "t=expense", "id, name")->order("order_by, name")->fetch(true);
+        
+        echo $this->view->render("invoices", [
+            "user" => $this->user,
+            "head" => $head,
+            "type" => "expense",
+            "categories" => $categories,
+            "invoices" => (new AppInvoice())->filter($this->user, "expense", (!empty($data) ? $data : null)),
+            "filter" => (object)[
+                "status" => (!empty($data['status']) ? $data['status'] : null),
+                "category" => (!empty($data['category']) ? $data['category'] : null),
+                "date" => (!empty($data['date']) ? str_replace("-", "/", $data['date']) : null)
+             ]
         ]);
     }
 
