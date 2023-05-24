@@ -65,6 +65,7 @@
         <label class="repeate_item repeate_item_fixed" style="display: none">
             <select name="period">
                 <option value="month">&ofcir; Mensal</option>
+                <option value="sixmonth">&ofcir; Semestral</option>
                 <option value="year">&ofcir; Anual</option>
             </select>
         </label>

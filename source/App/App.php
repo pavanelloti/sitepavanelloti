@@ -145,9 +145,36 @@ class App extends Controller
             (new AppInvoice())->fixed($this->user, $afterMonths);
         }
 
-
-        $json['debug'] = $afterMonths;
+        $redirect = ($data['filter'] === "income" ? "receber" : "pagar");
+        $json['redirect'] = url("/app/{$redirect}/{$status}/{$category}/{$m}-{$y}");
         echo json_encode($json);
+
+    }
+
+    public function onpaid(array $data): void
+    {
+        $invoice = (new AppInvoice())
+        ->find("user_id = :user AND id = :id", "user={$this->user->id}&id={$data['invoice']}")
+        ->fetch();
+        
+        if (!$invoice) {
+            $this->message->error("Ops! ocorreu um erro ao atualizar o lancçamento :/")->flash();
+            $json["reload"] = true;
+            echo json_encode($json);
+            return ;
+        }
+        $invoice->status = ($invoice->status === "paid" ? "unpaid" : "paid");
+        $invoice->save();
+
+        $y = date("Y");
+        $m = date("m");
+        if ($data["date"]) {
+            list($m, $y) = explode("/", $data["date"]);
+        }
+
+        $json["onpaid"] = (new AppInvoice())->balance($this->user, $y, $m, $invoice->type);
+        echo json_encode($json);
+        
     }
     ##########################
       /** PAGINA RECEBER **/
@@ -163,8 +190,11 @@ class App extends Controller
             false
         );
 
-        $categories = (new AppCategory())->find("type = :t", "t=income", "id, name")->order("order_by, name")->fetch(true);
-        
+        $categories = (new AppCategory())
+        ->find("type = :t", "t=income", "id, name")
+        ->order("order_by, name")
+        ->fetch(true);
+
         echo $this->view->render("invoices", [
             "user" => $this->user,
             "head" => $head,
@@ -182,7 +212,7 @@ class App extends Controller
     ##########################
        /** PAGINA PAGAR **/
     ##########################
-    public function expense()
+    public function expense(?array $data): void
     {
         $head = $this->seo->render(
             "Minhas despesas - " . CONF_SITE_NAME,

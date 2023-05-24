@@ -60,6 +60,7 @@ $route->get("/sair", "App:logout");
 
 $route->post("/launch", "App:launch");
 $route->post("/support", "App:support");
+$route->post("/onpaid", "App:onpaid");
 $route->post("/filter", "App:filter");
 
 

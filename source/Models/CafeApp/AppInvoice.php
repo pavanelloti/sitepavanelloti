@@ -24,7 +24,7 @@ class AppInvoice extends Model
     {
         $fixed = $this->find("user_id = :user AND status = 'paid' AND type IN('fixed_income', 'fixed_expense')",
             "user={$user->id}")->fetch(true);
-
+        
         if (!$fixed) {
             return;
         }
@@ -36,6 +36,10 @@ class AppInvoice extends Model
 
             if ($fixedItem->period == "month") {
                 $interval = new \DateInterval("P1M");
+            }
+
+            if ($fixedItem->period == "sixmonth") {
+                $interval = new \DateInterval("P6M");
             }
 
             if ($fixedItem->period == "year") {
@@ -60,15 +64,15 @@ class AppInvoice extends Model
             }
         }
     }
-    
+
     public function filter(User $user, string $type, ?array $filter, ?int $limit = null): ?array
     {
         $status = (!empty($filter['status']) && $filter['status'] == "paid" ? "AND status = 'paid'" : (!empty($filter['status']) && $filter['status'] === "unpaid" ? "AND status = 'unpaid'" : null ));
         $category = (!empty($filter['category']) && $filter['category'] != "all" ? "AND category_id = '{$filter['category']}'" : null );
         
         $due_year = (!empty($filter['date']) ? explode("-", $filter['date'])[1] : date("Y"));
-        $due_month = (!empty($filter['date']) ? explode("-", $filter['date'])[1] : date("m")); 
-        $due_at = "AND (year(due_at) = '{$due_year}' AND (month(due_at) = '{$due_month}')";
+        $due_month = (!empty($filter['date']) ? explode("-", $filter['date'])[0] : date("m")); 
+        $due_at = "AND (year(due_at) = '{$due_year}' AND month(due_at) = '{$due_month}')";
 
         $due = $this->find(
             "user_id = :user AND type = :type {$status} {$category} {$due_at}",
@@ -86,5 +90,26 @@ class AppInvoice extends Model
     public function category(): AppCategory
     {
         return (new AppCategory())->findById($this->category_id);
+    }
+
+    public function balance(User $user, int $year, int $month, string $type): ?object
+    {
+        $onpaid = $this->find(
+            "user_id = :user",
+            "user={$user->id}&type={$type}&year={$year}&month={$month}",
+            "
+                (SELECT SUM(value) FROM app_invoices WHERE user_id = :user AND type = :type AND year(due_at) = :year AND month(due_at) = :month AND status = 'paid') AS paid,
+                (SELECT SUM(value) FROM app_invoices WHERE user_id = :user AND type = :type AND year(due_at) = :year AND month(due_at) = :month AND status = 'unpaid') AS unpaid
+            "
+        )->fetch();
+        
+        if (!$onpaid) {  
+            return null;
+        }
+        
+        return (object)[
+            "paid" => str_price((!empty($onpaid->paid) ? $onpaid->paid : 0)),
+            "unpaid" => str_price((!empty($onpaid->unpaid) ? $onpaid->unpaid : 0)),
+        ];
     }
 }
