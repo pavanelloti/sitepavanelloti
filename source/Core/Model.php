@@ -260,7 +260,7 @@ abstract class Model
         try {
             $stmt = Connect::getInstance()->prepare("DELETE FROM " . static::$entity . " WHERE {$terms}");
             if ($params){
-                parse_str($params, $this->params);
+                parse_str($params, $params);
                 $stmt->execute($params);    
                 return true;
             }
@@ -272,14 +272,14 @@ abstract class Model
         }
     }
 
-    public function destrory(): bool
+    public function destroy()
     {
         if (empty($this->id)) {
             return false;
         }
 
-        $destrory = $this->delete("id = :id", "id={$this->id}");
-        return $destrory;
+        $destroy = $this->delete("id = :id", "id={$this->id}");
+        return $destroy;
     }
 
     /**
