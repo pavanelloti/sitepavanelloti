@@ -469,8 +469,24 @@ class App extends Controller
     ##########################
       /** PAGINA PERFIL **/
     ##########################
-    public function profile()
+    public function profile(?array $data): void
     {
+
+        if (!empty($data['update'])) {
+            list($d, $m, $y) = explode("/", $data['datebirth']);
+            $user = (new User())->findById($this->user->id);
+            $user->first_name = $data['first_name'];
+            $user->last_name = $data['last_name'];
+            $user->genre = $data['genre'];
+            $user->datebirth = "{$y}-{$m}-{$d}";
+            $user->document = preg_replace("/[^0-9]/", "", $data['document']);
+
+            
+            $json['data'] = $user->data();
+            echo json_encode($json);
+            return;
+
+        }
         $head = $this->seo->render(
             "Meu perfil - " . CONF_SITE_NAME,
             CONF_SITE_DESC,
@@ -480,7 +496,9 @@ class App extends Controller
         );
 
         echo $this->view->render("profile", [
-            "head" => $head
+            "head" => $head,
+            "user" => $this->user,
+            "photo" => ($this->user->photo() ? image($this->user->photo, 360, 360) : theme("/assets/images/avatar.jpg", CONF_VIEW_APP))
         ]);
     }
 
