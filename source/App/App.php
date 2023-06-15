@@ -444,6 +444,28 @@ class App extends Controller
         ]);
     }
 
+    /**
+    * @param array $data
+    * @return void
+    */
+    public function remove(array $data): void
+    {
+        $invoice = (new AppInvoice())->find("user_id = :user AND id = :id", "user={$this->user->id}&id={$data["invoice"]}")->fetch();
+
+        if($invoice)
+        {
+            $invoice->destroy();
+            $this->message->success("Tudo pronto {$this->user->first_name}. O lançamento foi removido com sucesso!")->flash();
+            $json["redirect"] = url("/app");
+            echo json_encode($json);
+            return;
+        }
+
+        $this->message->error("A fatura não existe ou foi removida!")->flash();
+        $json["redirect"] = url("/app");
+        echo json_encode($json);
+    }
+    
     ##########################
       /** PAGINA PERFIL **/
     ##########################
