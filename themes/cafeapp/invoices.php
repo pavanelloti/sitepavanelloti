@@ -12,7 +12,7 @@
         </select>
 
         <select name="category">
-            <option value="all">Todas</option>
+            <option value="">Todas</option>
             <?php foreach ($categories as $category): ?>
                 <option <?= (!empty($filter->category) && $filter->category == $category->id ? "selected" : ""); ?>
                         value="<?= $category->id; ?>"><?= $category->name; ?></option>

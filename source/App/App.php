@@ -34,6 +34,8 @@ class App extends Controller
 
         (new Access())->report();
         (new Online())->report();
+
+        (new AppWallet())->start($this->user);
         (new AppInvoice())->fixed($this->user, 3);
     }
     ##########################
@@ -236,6 +238,25 @@ class App extends Controller
                 "category" => (!empty($data['category']) ? $data['category'] : null),
                 "date" => (!empty($data['date']) ? str_replace("-", "/", $data['date']) : null)
              ]
+        ]);
+    }
+
+    ##########################
+       /** PAGINA FIXAS **/
+    ##########################
+    public function fixed(): void
+    {
+        $head = $this->seo->render(
+            "Minhas contas fixas - " . CONF_SITE_NAME,
+            CONF_SITE_DESC,
+            url(),
+            theme("/assets/images/share.jpg"),
+            false
+        );
+        
+        echo $this->view->render("recurrences", [
+            "head" => $head,
+            "invoices" => (new AppInvoice())->find("user_id = :user AND Type IN('fixed_income', 'fixed_expense')","user={$this->user->id}")->fetch(true)
         ]);
     }
 
