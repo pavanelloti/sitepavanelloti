@@ -7,6 +7,7 @@ use Source\Models\Auth;
 use Source\Models\Post;
 use Source\Models\User;
 use Source\Support\Email;
+use Source\Support\Upload;
 use Source\Core\Controller;
 use Source\Support\Message;
 use Source\Models\Report\Access;
@@ -14,6 +15,7 @@ use Source\Models\Report\Online;
 use Source\Models\CafeApp\AppWallet;
 use Source\Models\CafeApp\AppInvoice;
 use Source\Models\CafeApp\AppCategory;
+use Source\Support\Thumb;
 
 class App extends Controller
 {
@@ -502,12 +504,43 @@ class App extends Controller
             $user->datebirth = "{$y}-{$m}-{$d}";
             $user->document = preg_replace("/[^0-9]/", "", $data['document']);
 
+            if (!empty($_FILES["photo"])) {
+                $file = $_FILES["photo"];
+                $upload = new Upload();
+                
+                if ($this->user->photo()) {
+                    (new Thumb())->flush("storage/{$this->user->photo}");
+                    $upload->remove("storage/{$this->user->photo}");
+                }
+
+                if (!$user->photo = $upload->image($file, "{$user->first_name}{$user->last_name}" . time(), 360)) {
+                    $json['message'] = $upload->message()->before("Ooops {$this->user->first_name}! ")->after(".")->render();
+                    echo json_encode($json);
+                    return;
+                }
+            }
+
+            if (!empty($data["password"])) {
+                if (empty($data["password_re"]) || $data["password"] != $data["password_re"]) {
+                    $json['message'] = $this->message->warning("Para alterar sua senha, informe e repita a nova senha!")->render();
+                    echo json_encode($json);
+                    return;
+                }
+
+                $user->password = $data["password"];
+            }
+
+            if(!$user->save()) {
+                $json['message'] = $user->message()->render();
+                echo json_encode($json);
+                return;
+            }
             
-            $json['data'] = $user->data();
+            $json['message'] = $this->message->success("Pronto {$this->user->first_name}. Seus dados foram atualizado com Sucesso.")->render();
             echo json_encode($json);
             return;
-
         }
+
         $head = $this->seo->render(
             "Meu perfil - " . CONF_SITE_NAME,
             CONF_SITE_DESC,
